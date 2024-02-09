@@ -1,0 +1,59 @@
+body {
+  display: block;
+}
+
+.container {
+  margin: 2rem 12rem;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-self: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 30rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+}
+.name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.description {
+  height: 5rem;
+  overflow: hidden;
+  position: relative;
+}
+/* .description:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2rem;
+  background: linear-gradient(180deg, transparent, #f0eae5 90%);
+} */
