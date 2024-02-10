@@ -1,24 +1,75 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import { useAppSelector, useAppDispatch } from "../hooks";
-import { setAllData } from "../store/slice";
+import {
+  getData,
+  deleteCard,
+  addFavorites,
+  deleteFavorites,
+  showFavorites,
+} from "../store/slice";
+
 import { RootState } from "../store/store";
-import { useFetchMainInfoQuery } from "../utils/api";
+// import { useFetchMainInfoQuery } from "../utils/api";
 import { FaX } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa6";
-import { FaHeart } from "react-icons/fa6";
-import { FaFilter } from "react-icons/fa6";
+import { FaRegHeart, FaHeart, FaFilter } from "react-icons/fa6";
+
 import "../styles/MainPageStyle.css";
 
-function Main() {
-  const { data, error, isLoading, isFetching, isSuccess } =
-    useFetchMainInfoQuery();
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-  console.log(data);
+function Main() {
+  const navigate = useNavigate();
+  // const { data, error, isLoading, isFetching, isSuccess } =
+  //   useFetchMainInfoQuery();
+
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.data.data);
+  const selectFavorites = useAppSelector((state) => state.data.favorites);
+  const [isActive, setIsActive] = useState<Record<number, boolean>>({});
+  const [showAllFavorites, setShowAllFavorites] = useState(false);
+
+  console.log(selectFavorites);
+
+  useEffect(() => {
+    dispatch(getData());
+  }, []);
+
+  function handleDeleteClick(id: number) {
+    dispatch(deleteCard(id));
+  }
+
+  function handleFavoriteClick(id: number) {
+    const isFavorite = selectFavorites.some((item) => item.id === id);
+    if (isFavorite) {
+      dispatch(deleteFavorites(id));
+      setIsActive((prevState) => ({ ...prevState, [id]: !prevState[id] }));
+    } else {
+      dispatch(addFavorites(id));
+      setIsActive((prevState) => ({ ...prevState, [id]: !prevState[id] }));
+    }
+  }
+
+  function handleShowFavoriteClick() {
+    if (!showAllFavorites) {
+      dispatch(showFavorites({}));
+      setShowAllFavorites(true);
+    } else {
+      dispatch(getData());
+      setShowAllFavorites(false);
+    }
+  }
+
+  function handleCardClick(id: number) {
+    navigate(`/${id}`);
+  }
+
   return (
     <div className="container">
       <div className="heading">
         <h1>Choose your favourite shows</h1>
-        <span className="filter">
+        <span className="filter" onClick={() => handleShowFavoriteClick()}>
           Show liked shows
           <FaFilter />
         </span>
@@ -27,18 +78,27 @@ function Main() {
       <div className="main">
         {data?.map((item) => {
           return (
-            <div key={item.id} className="card">
+            <div key={item.id} className="main-card">
               <div className="icons">
-                <FaRegHeart />
-                <FaX />
+                {isActive[item.id] ? (
+                  <FaHeart onClick={() => handleFavoriteClick(item.id)} />
+                ) : (
+                  <FaRegHeart onClick={() => handleFavoriteClick(item.id)} />
+                )}
+
+                <FaX onClick={() => handleDeleteClick(item.id)} />
               </div>
-              <div className="card-body">
+              <div
+                className="main-card__body"
+                onClick={() => handleCardClick(item.id)}
+              >
                 <p className="name"> {item.name}</p>
                 <span
-                  className="description"
+                  className="main-description"
                   dangerouslySetInnerHTML={{ __html: item.summary }}
                 ></span>
-                <img src={item.image.original} alt={item.name}></img>
+
+                {/* <img src={item.image.original} alt={item.name}></img> */}
               </div>
             </div>
           );

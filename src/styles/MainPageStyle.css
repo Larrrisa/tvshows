@@ -11,6 +11,7 @@ body {
   flex-wrap: wrap;
   gap: 2rem;
 }
+
 .heading {
   display: flex;
   justify-content: space-between;
@@ -22,16 +23,20 @@ body {
   align-self: center;
 }
 
-.card {
+.main-card {
   display: flex;
   flex-direction: column;
   height: auto;
   width: 30rem;
 }
 
-.card-body {
+.main-card__body {
   display: flex;
   flex-direction: column;
+}
+
+.main-card__body a {
+  text-decoration: none;
 }
 
 .icons {
@@ -43,7 +48,7 @@ body {
   font-weight: 700;
 }
 
-.description {
+.main-description {
   height: 5rem;
   overflow: hidden;
   position: relative;

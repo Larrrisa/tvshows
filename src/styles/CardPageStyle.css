@@ -1,0 +1,33 @@
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.content {
+  display: flex;
+  gap: 2rem;
+}
+
+.description p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 2rem;
+  color: black;
+}
+
+.link {
+  border: 1px solid grey;
+  border-radius: 2rem;
+}
