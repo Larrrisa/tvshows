@@ -1,35 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// interface PageState {
-//   data: [
-//     {
-//       id: number;
-//       name: string;
-//       summary: string;
-//       image: any;
-//       url: string;
-//
-//     }
-//   ];
-// }
-
-// const initialState: PageState = {
-//   data: [
-//     {
-//       id: 0,
-//       name: "",
-//       summary: "",
-//       image: null,
-//       url: "",
-//
-//     },
-//   ],
-// };
 const initialState = {
-  data: [{ id: 0, name: "", summary: "", image: null, url: "" }],
+  data: [
+    {
+      id: 0,
+      name: "",
+      summary: "",
+      image: {
+        original: "",
+        medium: "",
+      },
+      url: "",
+    },
+  ],
 
-  favorites: [{ id: 0, name: "", summary: "", image: null, url: "" }],
+  favorites: [
+    {
+      id: 0,
+      name: "",
+      summary: "",
+      image: {
+        original: "",
+        medium: "",
+      },
+      url: "",
+    },
+  ],
 };
 
 export const dataSlice = createSlice({

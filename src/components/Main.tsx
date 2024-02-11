@@ -9,28 +9,21 @@ import {
   showFavorites,
 } from "../store/slice";
 
-import { RootState } from "../store/store";
-// import { useFetchMainInfoQuery } from "../utils/api";
 import { FaX } from "react-icons/fa6";
 import { FaRegHeart, FaHeart, FaFilter } from "react-icons/fa6";
 
 import "../styles/MainPageStyle.css";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 function Main() {
   const navigate = useNavigate();
-  // const { data, error, isLoading, isFetching, isSuccess } =
-  //   useFetchMainInfoQuery();
 
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.data.data);
   const selectFavorites = useAppSelector((state) => state.data.favorites);
   const [isActive, setIsActive] = useState<Record<number, boolean>>({});
   const [showAllFavorites, setShowAllFavorites] = useState(false);
-
-  console.log(selectFavorites);
 
   useEffect(() => {
     dispatch(getData());
@@ -68,11 +61,10 @@ function Main() {
   return (
     <div className="container">
       <div className="heading">
-        <h1>Choose your favourite shows</h1>
-        <span className="filter" onClick={() => handleShowFavoriteClick()}>
-          Show liked shows
-          <FaFilter />
-        </span>
+        <h1>TV shows</h1>
+      </div>
+      <div className="filter" onClick={() => handleShowFavoriteClick()}>
+        <FaFilter />
       </div>
 
       <div className="main">
@@ -98,7 +90,7 @@ function Main() {
                   dangerouslySetInnerHTML={{ __html: item.summary }}
                 ></span>
 
-                {/* <img src={item.image.original} alt={item.name}></img> */}
+                {<img src={item.image.original} alt={item.name}></img>}
               </div>
             </div>
           );
